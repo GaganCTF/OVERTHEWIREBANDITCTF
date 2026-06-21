@@ -69,5 +69,64 @@ We get a gibberish file and
 cat the file to find password
 
 ###Level7-8
+*Goal-* To get password from a file 'data.txt' which has password next to the word millionth
+*Soluion-* A common mistake which like me you could have made was by opening file by
+cat ./data.txt which leads you to a output which seems like infinite progression of data
+To Solve this we need to use grep tool
+'grep "millionth" data.txt'
+This prints the whole line with millionth in it and you find password
+
+###Level8-9
+*Goal-* To get password from a file 'data.txt' which has password in a line of text that occurs only once
+*Solution-* We are going to get password by typing
+Bash- 'sort data.txt | uniq -u' which means
+SORT the file 'data.txt' either alphabetically or numerically and then 
+show all UNIQue lines with -u to make sure we only get lines which were repeated 0 times
+which in turn leads to password
+
+###Level9-10
+*Goal-* To find password from a file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters
+*Solution-*Just use direct command
+Bash- 'strings data.txt' which shows you readable data from files
+Although you get 2-3 password which are preceded by '=' characters but use pattern to see that the
+password would look gibberish like the other ones.
+
+###Level10-11
+*Goal-* To find password from a file data.txt, which contains base64 encoded data
+*Solution-* Use direct command 
+Bash- 'cat data.txt | base64 -d'
+There was a command which I used earlier
+Bash- 'echo text | base64 -d'
+This will do same thing if you could cat the file earlier and then paste base64 message instead of text.
+
+###Level11-12
+*Goal-* To find password from a file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+*Solution-* We want to translate letters or rotate them by 13
+Bash- 'cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+Explanation-tr is used to translate letters or rotate them 
+Also the next text represents this
+[A-N,Z-M,a-n,z-m] - The transformed list shows this pattern.
+Also you can see both texts have same 1-2-2......-1 pattern
+The file was designed in such a way that it said 
+The password is ..........
+Copy it for next part
+
+###Level12-13
+*Goal-*To find password from a file data.txt, which is a hexdump of a file that has been repeatedly compressed.
+*Solution-* This part is lengthy one so we would need to solve it in steps.
+The order we are going to follow is making a new directory mkdir as advised in ques
+then we are going to copy material inside data.txt into the directory we made.
+Then we would uncover it by first reversing hexdump and unzipping using gunzip or bzip2 as the filedata would suggest and 
+finally we use tar -xf datafile to finally open posix tar archive file to get password.
+I have uploaded a pic of bash on terminal for reference.
+
+###Level14-15
+*Goal-* The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level.Find password
+*Solution-* First open bandit13 and see ls(list) and cat the file.You see a private key file which is big in lines.
+Now put bash- ssh -i sshkey.private bandit14@localhost -p 2220
+Now open file by bash- cat /etc/bandit_pass/bandit14
+Get password.
+
+
 
 
